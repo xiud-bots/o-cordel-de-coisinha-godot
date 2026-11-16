@@ -1,0 +1,106 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://src/levels/Stage4_Botija.gd" id="1_stage4_script"]
+[ext_resource type="PackedScene" path="res://src/entities/player/Coisinha.tscn" id="2_coisinha_scene"]
+[ext_resource type="Script" path="res://src/components/InteractableComponent.gd" id="3_interactable_script"]
+[ext_resource type="Shader" path="res://src/art/shaders/darkness_lantern.gdshader" id="4_darkness_shader"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_beato"]
+radius = 80.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_darkness"]
+shader = ExtResource("4_darkness_shader")
+shader_parameter/viewport_size = Vector2(960, 580)
+shader_parameter/light_center_px = Vector2(480, 360)
+shader_parameter/lantern_active = false
+shader_parameter/lantern_blend = 0.0
+shader_parameter/base_radius_px = 85.0
+shader_parameter/lantern_radius_px = 320.0
+shader_parameter/inner_falloff = 0.3
+shader_parameter/flicker_strength = 0.022
+shader_parameter/darkness_color = Color(0.0118, 0.0157, 0.0314, 0.94)
+shader_parameter/lantern_glow_color = Color(0.996, 0.941, 0.541, 0.24)
+
+[node name="Stage4_Botija" type="Node2D"]
+script = ExtResource("1_stage4_script")
+
+[node name="WallsRoot" type="Node2D" parent="."]
+
+[node name="BushesRoot" type="Node2D" parent="."]
+
+[node name="BeatoInteractable" type="Area2D" parent="."]
+position = Vector2(480, 180)
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("3_interactable_script")
+interact_id = "beato_paroquia"
+prompt_text = "Falar com o Beato [E]"
+interact_priority = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BeatoInteractable"]
+shape = SubResource("CircleShape2D_beato")
+
+[node name="Coisinha" parent="." instance=ExtResource("2_coisinha_scene")]
+position = Vector2(480, 360)
+
+[node name="DarknessLayer" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="DarknessRect" type="ColorRect" parent="DarknessLayer"]
+visible = false
+material = SubResource("ShaderMaterial_darkness")
+offset_right = 960.0
+offset_bottom = 580.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="TopBar" type="PanelContainer" parent="HUDLayer"]
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 950.0
+offset_bottom = 44.0
+
+[node name="TitleLabel" type="Label" parent="HUDLayer/TopBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.815686, 0.439216, 1)
+theme_override_font_sizes/font_size = 14
+text = "🏺 FASE 4: LOTE DA IGREJA — SANTUÁRIO SEGURO (BEATO)"
+vertical_alignment = 1
+
+[node name="HPBox" type="HBoxContainer" parent="HUDLayer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="HPLabel" type="Label" parent="HUDLayer/TopBar/HPBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "❤️ ❤️ ❤️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemLabel" type="Label" parent="HUDLayer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.992157, 0.901961, 0.541176, 1)
+theme_override_font_sizes/font_size = 13
+text = "🏮 Sem Candeeiro | 🏺 Sem Botija"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StatusBar" type="PanelContainer" parent="HUDLayer"]
+offset_left = 0.0
+offset_top = 540.0
+offset_right = 960.0
+offset_bottom = 580.0
+
+[node name="StatusLabel" type="Label" parent="HUDLayer/StatusBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.992157, 0.901961, 0.541176, 1)
+theme_override_font_sizes/font_size = 13
+text = "Saia da Igreja pela esquerda, desenterre a Botija no Lote 0 e retorne ao Santuário!"
+horizontal_alignment = 1
+vertical_alignment = 1

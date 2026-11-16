@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/components/BushComponent.gd" id="1_bush_script"]
+[ext_resource type="Script" path="res://src/art/XiloSprite.gd" id="2_xilo_sprite"]
+[ext_resource type="Script" path="res://src/components/InteractableComponent.gd" id="3_interactable"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hazard"]
+radius = 32.0
+
+[node name="Bush" type="Node2D"]
+script = ExtResource("1_bush_script")
+
+[node name="XiloSprite" type="Node2D" parent="."]
+script = ExtResource("2_xilo_sprite")
+kind = "moita"
+radius = 24.0
+animate = false
+
+[node name="InteractableComponent" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("3_interactable")
+interact_id = "bush"
+prompt_text = "Vasculhar moita [E]"
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="HazardArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea"]
+shape = SubResource("CircleShape2D_hazard")

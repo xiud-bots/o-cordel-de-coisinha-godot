@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/levels/Stage3_RasgaMortalha.gd" id="1_stage3_script"]
+[ext_resource type="PackedScene" path="res://src/entities/player/Coisinha.tscn" id="2_coisinha_scene"]
+
+[node name="Stage3_RasgaMortalha" type="Node2D"]
+script = ExtResource("1_stage3_script")
+
+[node name="Coisinha" parent="." instance=ExtResource("2_coisinha_scene")]
+position = Vector2(480, 380)
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="TopBar" type="PanelContainer" parent="HUDLayer"]
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 825.0
+offset_bottom = 44.0
+
+[node name="TitleLabel" type="Label" parent="HUDLayer/TopBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.968627, 0.815686, 0.439216, 1)
+theme_override_font_sizes/font_size = 15
+text = "🦉 FASE 3: A PRAÇA DAS 5 CASAS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerPanel" type="PanelContainer" parent="HUDLayer"]
+offset_left = 835.0
+offset_top = 8.0
+offset_right = 950.0
+offset_bottom = 44.0
+
+[node name="TimerLabel" type="Label" parent="HUDLayer/TimerPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.996078, 0.941176, 0.541176, 1)
+theme_override_font_sizes/font_size = 15
+text = "⏳ 05:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusBar" type="PanelContainer" parent="HUDLayer"]
+offset_left = 0.0
+offset_top = 540.0
+offset_right = 960.0
+offset_bottom = 580.0
+
+[node name="StatusLabel" type="Label" parent="HUDLayer/StatusBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.996078, 0.941176, 0.541176, 1)
+theme_override_font_sizes/font_size = 13
+text = "Ouça os 2 Violeiros [E], pegue Moradores, Bebidas, Fumos e Animais [E] e entre nas 5 casas!"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,338 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://src/levels/StudioScene.gd" id="1_studio_script"]
+[ext_resource type="PackedScene" path="res://src/entities/player/Coisinha.tscn" id="2_coisinha_scene"]
+[ext_resource type="Script" path="res://src/components/InteractableComponent.gd" id="3_interactable"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(30, 580)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(960, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
+size = Vector2(200, 40)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_prensa"]
+radius = 75.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cordel"]
+size = Vector2(140, 60)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_folheto"]
+bg_color = Color(0.901961, 0.811765, 0.658824, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.0784314, 0.0627451, 0.0470588, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.0823529, 0.501961, 0.239216, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.290196, 0.870588, 0.501961, 1)
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.901961, 0.811765, 0.658824, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.85098, 0.466667, 0.0235294, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+bg_color = Color(0.956863, 0.921569, 0.85098, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0784314, 0.0627451, 0.0470588, 1)
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+
+[node name="StudioScene" type="Node2D"]
+script = ExtResource("1_studio_script")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(480, 290)
+enabled = true
+limit_left = 0
+limit_top = 0
+limit_right = 960
+limit_bottom = 580
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="LeftWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(15, 290)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="RightWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(945, 290)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="TopWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(480, 15)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="BottomWall" type="CollisionShape2D" parent="Walls"]
+position = Vector2(480, 565)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="DoorArea" type="Area2D" parent="."]
+position = Vector2(480, 85)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorArea"]
+shape = SubResource("RectangleShape2D_door")
+
+[node name="PrensaInteractable" type="Area2D" parent="."]
+position = Vector2(180, 130)
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("3_interactable")
+interact_id = "prensa"
+prompt_text = "Prensa do Destino [E]"
+interact_priority = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PrensaInteractable"]
+shape = SubResource("CircleShape2D_prensa")
+
+[node name="CordelTriggers" type="Node2D" parent="."]
+
+[node name="Cordel1" type="Area2D" parent="CordelTriggers"]
+position = Vector2(180, 310)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CordelTriggers/Cordel1"]
+shape = SubResource("RectangleShape2D_cordel")
+
+[node name="Cordel2" type="Area2D" parent="CordelTriggers"]
+position = Vector2(370, 310)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CordelTriggers/Cordel2"]
+shape = SubResource("RectangleShape2D_cordel")
+
+[node name="Cordel3" type="Area2D" parent="CordelTriggers"]
+position = Vector2(560, 310)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CordelTriggers/Cordel3"]
+shape = SubResource("RectangleShape2D_cordel")
+
+[node name="Cordel4" type="Area2D" parent="CordelTriggers"]
+position = Vector2(750, 310)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CordelTriggers/Cordel4"]
+shape = SubResource("RectangleShape2D_cordel")
+
+[node name="Coisinha" parent="." instance=ExtResource("2_coisinha_scene")]
+position = Vector2(480, 430)
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="HeaderLabel" type="Label" parent="HUDLayer"]
+offset_left = 40.0
+offset_top = 18.0
+offset_right = 920.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.968627, 0.815686, 0.439216, 1)
+theme_override_font_sizes/font_size = 16
+text = "🏛️ ESTÚDIO DE XILOGRAVURA MALASSOMBRADO"
+horizontal_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="HUDLayer"]
+offset_left = 40.0
+offset_top = 500.0
+offset_right = 920.0
+offset_bottom = 526.0
+theme_override_colors/font_color = Color(0.796078, 0.835294, 0.882353, 1)
+theme_override_font_sizes/font_size = 13
+text = "Pise em um cordel no chão para entrar no conto!"
+horizontal_alignment = 1
+
+[node name="OpeningOverlay" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 30
+visible = false
+
+[node name="Backdrop" type="ColorRect" parent="OpeningOverlay"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0392157, 0.0313726, 0.0235294, 0.9)
+
+[node name="CenterContainer" type="CenterContainer" parent="OpeningOverlay/Backdrop"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FolhetoPanel" type="PanelContainer" parent="OpeningOverlay/Backdrop/CenterContainer"]
+custom_minimum_size = Vector2(760, 450)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_folheto")
+
+[node name="MarginContainer" type="MarginContainer" parent="OpeningOverlay/Backdrop/CenterContainer/FolhetoPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OpeningOverlay/Backdrop/CenterContainer/FolhetoPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="HeaderLabel" type="Label" parent="OpeningOverlay/Backdrop/CenterContainer/FolhetoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.470588, 0.207843, 0.0588235, 1)
+theme_override_font_sizes/font_size = 13
+text = "FOLHETO DE ABERTURA — O SERTÃO DE CORDEL"
+horizontal_alignment = 1
+
+[node name="TitleLabel" type="Label" parent="OpeningOverlay/Backdrop/CenterContainer/FolhetoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0784314, 0.0627451, 0.0470588, 1)
+theme_override_font_sizes/font_size = 21
+text = "O CORDEL DE COISINHA: O HERÓI DO SERTÃO"
+horizontal_alignment = 1
+
+[node name="Divider" type="ColorRect" parent="OpeningOverlay/Backdrop/CenterContainer/FolhetoPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.54902, 0.427451, 0.27451, 1)
+
+[node name="VersesLabel" type="Label" parent="OpeningOverlay/Backdrop/CenterContainer/FolhetoPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.0784314, 0.0627451, 0.0470588, 1)
+theme_override_font_sizes/font_size = 14
+text = "No estúdio malassombrado do mestre gravador,
+Quatro contos inacabados aguardam seu valor.
+Pise nos cordéis do chão para cada terra adentrar,
+E os quatro instrumentos místicos na caatinga resgatar:
+
+🪧 Carimbo (Chupa-Cabra)  •  🌿 Folha (Cumade Fulozinha)
+🪶 Pena (Rasga-Mortalha)  •  🏺 Tinta (Botija de Mané)
+
+Com os quatro reunidos, volte à Prensa do Destino,
+Estampe teu nome no folheto e cumpra o teu desígnio!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ContinueButton" type="Button" parent="OpeningOverlay/Backdrop/CenterContainer/FolhetoPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(320, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "ENTRAR NO ESTÚDIO [E / Clique] ▶"
+
+[node name="NamingModal" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 35
+visible = false
+
+[node name="Backdrop" type="ColorRect" parent="NamingModal"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0392157, 0.0313726, 0.0235294, 0.9)
+
+[node name="CenterContainer" type="CenterContainer" parent="NamingModal/Backdrop"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ModalPanel" type="PanelContainer" parent="NamingModal/Backdrop/CenterContainer"]
+custom_minimum_size = Vector2(560, 300)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="MarginContainer" type="MarginContainer" parent="NamingModal/Backdrop/CenterContainer/ModalPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NamingModal/Backdrop/CenterContainer/ModalPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="NamingModal/Backdrop/CenterContainer/ModalPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0823529, 0.501961, 0.239216, 1)
+theme_override_font_sizes/font_size = 18
+text = "✨ PRENSA DO DESTINO PRONTA! ✨"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="NamingModal/Backdrop/CenterContainer/ModalPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0784314, 0.0627451, 0.0470588, 1)
+theme_override_font_sizes/font_size = 14
+text = "Grita teu nome, herói, para estampar na capa do Cordel:"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="NameInput" type="LineEdit" parent="NamingModal/Backdrop/CenterContainer/ModalPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(320, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.0784314, 0.0627451, 0.0470588, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+text = "Coisinha"
+placeholder_text = "Coisinha"
+alignment = 1
+max_length = 16
+
+[node name="ConfirmButton" type="Button" parent="NamingModal/Backdrop/CenterContainer/ModalPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(340, 42)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+text = "ESTAMPAR NOME E ENCERRAR [Enter / Clique] 🖨️"

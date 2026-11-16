@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://src/entities/player/Coisinha.gd" id="1_coisinha_script"]
+[ext_resource type="Script" path="res://src/art/XiloSprite.gd" id="2_xilo_sprite"]
+[ext_resource type="Script" path="res://src/components/HealthComponent.gd" id="3_health_comp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
+radius = 38.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_shout"]
+radius = 120.0
+
+[node name="Coisinha" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+motion_mode = 1
+script = ExtResource("1_coisinha_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="XiloSprite" type="Node2D" parent="."]
+script = ExtResource("2_xilo_sprite")
+kind = "coisinha"
+sprite_size = Vector2(44, 44)
+animate = true
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_health_comp")
+max_hp = 3
+invulnerability_duration = 5.0
+sync_with_game_manager = true
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_interact")
+
+[node name="ShoutArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShoutArea"]
+shape = SubResource("CircleShape2D_shout")

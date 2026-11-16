@@ -1,0 +1,122 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/levels/Stage1_ChupaCabra.gd" id="1_stage1_script"]
+[ext_resource type="PackedScene" path="res://src/entities/player/Coisinha.tscn" id="2_coisinha_scene"]
+[ext_resource type="Script" path="res://src/components/InteractableComponent.gd" id="3_interactable"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fazendeiro"]
+radius = 95.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_box"]
+bg_color = Color(0.117647, 0.160784, 0.231373, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.831373, 0.686275, 0.215686, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+
+[node name="Stage1_ChupaCabra" type="Node2D"]
+script = ExtResource("1_stage1_script")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1200, 780)
+enabled = true
+limit_left = 0
+limit_top = 0
+limit_right = 2400
+limit_bottom = 1350
+
+[node name="BushesRoot" type="Node2D" parent="."]
+
+[node name="FazendeiroInteractable" type="Area2D" parent="."]
+position = Vector2(1200, 620)
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("3_interactable")
+interact_id = "fazendeiro"
+prompt_text = "Falar com Fazendeiro [E]"
+interact_priority = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FazendeiroInteractable"]
+shape = SubResource("CircleShape2D_fazendeiro")
+
+[node name="Coisinha" parent="." instance=ExtResource("2_coisinha_scene")]
+position = Vector2(1200, 780)
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="TopBar" type="Control" parent="HUDLayer"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 48.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="HPBox" type="PanelContainer" parent="HUDLayer/TopBar"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 10.0
+offset_right = 140.0
+offset_bottom = 42.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hp_box")
+
+[node name="HPLabel" type="Label" parent="HUDLayer/TopBar/HPBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "❤️ ❤️ ❤️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleLabel" type="Label" parent="HUDLayer/TopBar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -280.0
+offset_top = 12.0
+offset_right = 280.0
+offset_bottom = 38.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.968627, 0.815686, 0.439216, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 15
+text = "🐐 FASE 1: O ATAQUE DO CHUPA-CABRA | Bodes Salvos: 0 / 4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusBar" type="Control" parent="HUDLayer"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -36.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="StatusLabel" type="Label" parent="HUDLayer/StatusBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.992157, 0.901961, 0.541176, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Explore as moitas, ache a corda e traga os 4 bodes ao curral!"
+horizontal_alignment = 1
+vertical_alignment = 1

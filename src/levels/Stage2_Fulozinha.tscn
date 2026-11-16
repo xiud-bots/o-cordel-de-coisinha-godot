@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/levels/Stage2_Fulozinha.gd" id="1_stage2_script"]
+[ext_resource type="PackedScene" path="res://src/entities/player/Coisinha.tscn" id="2_coisinha_scene"]
+[ext_resource type="Script" path="res://src/components/InteractableComponent.gd" id="3_interactable_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_placa"]
+radius = 45.0
+
+[node name="Stage2_Fulozinha" type="Node2D"]
+script = ExtResource("1_stage2_script")
+
+[node name="WallsRoot" type="Node2D" parent="."]
+
+[node name="BushesRoot" type="Node2D" parent="."]
+
+[node name="PlacaInteractable" type="Area2D" parent="."]
+position = Vector2(800, 250)
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("3_interactable_script")
+interact_id = "placa_topada"
+prompt_text = "Ler Placa [E]"
+interact_priority = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlacaInteractable"]
+shape = SubResource("CircleShape2D_placa")
+
+[node name="Coisinha" parent="." instance=ExtResource("2_coisinha_scene")]
+position = Vector2(120, 270)
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="TopBar" type="PanelContainer" parent="HUDLayer"]
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 950.0
+offset_bottom = 44.0
+
+[node name="TitleLabel" type="Label" parent="HUDLayer/TopBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.980392, 0.8, 0.0823529, 1)
+theme_override_font_sizes/font_size = 15
+text = "🌿 FASE 2: LOTE 0 — ENTRADA DA FAZENDA"
+vertical_alignment = 1
+
+[node name="HPBox" type="HBoxContainer" parent="HUDLayer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="HPLabel" type="Label" parent="HUDLayer/TopBar/HPBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "❤️ ❤️ ❤️"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FumoLabel" type="Label" parent="HUDLayer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.992157, 0.901961, 0.541176, 1)
+theme_override_font_sizes/font_size = 14
+text = "🍂 Fumo: 0/1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="StatusBar" type="PanelContainer" parent="HUDLayer"]
+offset_left = 0.0
+offset_top = 540.0
+offset_right = 960.0
+offset_bottom = 580.0
+
+[node name="StatusLabel" type="Label" parent="HUDLayer/StatusBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.992157, 0.901961, 0.541176, 1)
+theme_override_font_sizes/font_size = 13
+text = "Navegue pelos 6 lotes da fazenda. Encontre o Fumo na moita do Lote 1b e leve à Fulô no Lote 3b!"
+horizontal_alignment = 1
+vertical_alignment = 1
