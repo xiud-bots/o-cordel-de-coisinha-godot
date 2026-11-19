@@ -17,7 +17,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-_mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 EventBus="*res://src/autoload/EventBus.gd"
 GameManager="*res://src/autoload/GameManager.gd"
 JuiceManager="*res://src/autoload/JuiceManager.gd"
@@ -26,6 +25,8 @@ DialogPanel="*res://src/ui/DialogPanel.tscn"
 NarrativeOverlay="*res://src/ui/NarrativeOverlay.tscn"
 PauseMenu="*uid://cp6bqw8p8c3y2"
 ItemsHud="*uid://b1pvt4ovcb2s4"
+_mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
+SaveManager="*uid://biei2q5g07gk0"
 
 [display]
 
