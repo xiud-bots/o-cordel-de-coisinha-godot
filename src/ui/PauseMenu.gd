@@ -6,6 +6,9 @@ var _backdrop: ColorRect
 var _resume_button: Button
 var _studio_button: Button
 
+var _new_game_button: Button
+var _new_game_armed: bool = false
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -37,6 +40,7 @@ func _can_open() -> bool:
 
 func _open() -> void:
 	_is_open = true
+	_disarm_new_game()
 	_studio_button.visible = GameManager.current_scene_id != "STUDIO"
 	_backdrop.visible = true
 	GameManager.set_paused(true)
@@ -60,6 +64,26 @@ func _on_studio_pressed() -> void:
 	_close()
 	GameManager.call_deferred("switch_scene", "STUDIO")
 
+func _on_new_game_pressed() -> void:
+	if not _new_game_armed:
+		_new_game_armed = true
+		_new_game_button.text = "Apagar progresso? Clique de novo"
+		SoundManager.play_ui_click()
+		return
+
+	SoundManager.play_ui_click()
+	_disarm_new_game()
+	_close()
+	var studio_script: GDScript = load("res://src/levels/StudioScene.gd") as GDScript
+	studio_script.reset_intro_flag()
+	GameManager.reset_full_game()
+	GameManager.call_deferred("switch_scene", "STUDIO")
+
+
+func _disarm_new_game() -> void:
+	_new_game_armed = false
+	if _new_game_button != null:
+		_new_game_button.text = "Novo jogo"
 
 func _build_ui() -> void:
 	_backdrop = ColorRect.new()
@@ -102,6 +126,10 @@ func _build_ui() -> void:
 	_studio_button.text = "Voltar ao Estúdio"
 	_studio_button.pressed.connect(_on_studio_pressed)
 	box.add_child(_studio_button)
+	_new_game_button = Button.new()
+	_new_game_button.text = "Novo jogo"
+	_new_game_button.pressed.connect(_on_new_game_pressed)
+	box.add_child(_new_game_button)
 
 	var hint: Label = Label.new()
 	hint.text = "Mover: WASD/Setas · Interagir: E · Gritar: Espaço · Aboio: Q/F · Som: M"
