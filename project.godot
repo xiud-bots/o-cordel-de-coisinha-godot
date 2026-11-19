@@ -24,6 +24,8 @@ JuiceManager="*res://src/autoload/JuiceManager.gd"
 SoundManager="*res://src/autoload/SoundManager.gd"
 DialogPanel="*res://src/ui/DialogPanel.tscn"
 NarrativeOverlay="*res://src/ui/NarrativeOverlay.tscn"
+PauseMenu="*uid://cp6bqw8p8c3y2"
+ItemsHud="*uid://b1pvt4ovcb2s4"
 
 [display]
 

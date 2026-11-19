@@ -29,6 +29,18 @@ func _ready() -> void:
 		_sfx_pool.append(player)
 	_refresh_volumes()
 
+func _unhandled_input(event: InputEvent) -> void:
+	var key_event: InputEventKey = event as InputEventKey
+	if key_event == null or not key_event.pressed or key_event.echo:
+		return
+	if key_event.keycode != KEY_M:
+		return
+
+	var muted_now: bool = toggle_mute()
+	DialogPanel.post_message(
+		"Som desligado [M]" if muted_now else "Som ligado [M]",
+		{"icon": "🔇" if muted_now else "🔊"}
+	)
 
 func is_muted() -> bool:
 	return _muted
